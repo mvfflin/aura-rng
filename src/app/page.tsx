@@ -3,6 +3,8 @@
 import { auraList } from "@/constants/dummyaura";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+// import exactmath from "exact-math"
+const exactmath = require("exact-math")
 
 export default function Home() {
     const [aura, setAura] = useState<any>(0);
@@ -29,7 +31,7 @@ export default function Home() {
         let Cumulative = 0;
         for (let index = 0; index < auraList.length; index++) {
             Cumulative += auraList[index].Rarity;
-            setCumul(Cumulative);
+            setCumul(exactmath.round(Cumulative, 4));
             setRand(randomChance);
             if (randomChance <= Cumulative) {
                 setAura(auraList[index].Name);
@@ -63,9 +65,10 @@ export default function Home() {
 
     return (
         <main className="">
-            <h1 className="text-center py-10 text-2xl">
-                Aura : {aura} | {rand} | {cumul}
+            <h1 className="text-center py-10 text-5xl">
+                {aura}
             </h1>
+            <h2>1 of {cumul}</h2>
             <div className="justify-center">
                 <div
                     id="rollAura"
